@@ -14,19 +14,18 @@ export class MapComponent  implements OnInit, AfterViewInit{
   //  long is from -180 to 180
    map_width =0
    map_height = 0
-   size= 4
+   size= 2
    convert_coor = (lat:number, long:number)=>{
       if(this.canvas){
-        let x =this.canvas.nativeElement.getBoundingClientRect().x
-        let y =this.canvas.nativeElement.getBoundingClientRect().y
-        this.map_width = this.canvas.nativeElement.getBoundingClientRect().width
-        this.map_height = this.canvas.nativeElement.getBoundingClientRect().height
-        x= long + 180
-        y = lat + 90 
+        this.map_width = this.canvas.nativeElement.width
+        this.map_height = this.canvas.nativeElement.height
+    
+       let x= long + 180
+       let y = lat + 90 
         x = (x/(2*180))*this.map_width
         y= (y/(2*90))*this.map_height
-          this.lat= y- this.size/2
           this.long= x- this.size/2
+          this.lat= this.map_height - y -this.size/2
 
       }else{
         console.error("no target element")
@@ -54,10 +53,8 @@ export class MapComponent  implements OnInit, AfterViewInit{
         const dot = new Image()
         dot.src = '../../assets/map/dot_base.png' 
         dot.onload=()=>{
-          // ctx.drawImage(dot, Math.floor(this.long),Math.floor(this.lat), 10,10 )
           // ctx.drawImage(dot,803,227, 10,10 )
-          ctx.drawImage(dot, 160,100, this.size,this.size )
-          ctx.drawImage(dot, 5,5, 1,1 )
+          ctx.drawImage(dot, this.long,this.lat, this.size,this.size )
         
         }
             
