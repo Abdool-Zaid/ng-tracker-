@@ -1,3 +1,7 @@
 canvas{
     width: 100vw;
+    background-image:    url(../../assets/map/Blue_Marble_2002.png);
+    background-size:     cover;                      
+    background-repeat:   no-repeat;
+    background-position: center center;
 }

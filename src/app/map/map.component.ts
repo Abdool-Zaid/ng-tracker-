@@ -22,15 +22,7 @@ export class MapComponent  implements OnInit, AfterViewInit{
         const ctx = this.canvas.nativeElement.getContext('2d');
         
         if(ctx){
-          const backgroundImage = new Image();
-          backgroundImage.src = './assets/map/Blue_Marble_2002.png';
-          backgroundImage.onload = () => {
-            // Draw the image onto the canvas as a background
-
-              ctx.drawImage(backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
-      
-            
-          };
+         
       
 
         }else{
