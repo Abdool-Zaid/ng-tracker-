@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit,  } from '@angular/core';
+// import * as gifler from 'gifler'
+
 @Component({
   selector: 'app-map',
   standalone: true,
@@ -15,6 +17,7 @@ export class MapComponent  implements OnInit, AfterViewInit{
    map_width =0
    map_height = 0
    size= 2
+    
    convert_coor = (lat:number, long:number)=>{
       if(this.canvas){
         this.map_width = this.canvas.nativeElement.width
@@ -51,9 +54,11 @@ export class MapComponent  implements OnInit, AfterViewInit{
         
         if(ctx){
         const dot = new Image()
-        dot.src = '../../assets/map/dot_base.png' 
+        dot.src = '../../assets/map/4.png' 
+        // gifler('../../assets/map/dot.gif')
+        
         dot.onload=()=>{
-          // ctx.drawImage(dot,803,227, 10,10 )
+          console.log('loaded')
           ctx.drawImage(dot, this.long,this.lat, this.size,this.size )
         
         }
