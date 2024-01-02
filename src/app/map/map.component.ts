@@ -103,7 +103,7 @@ loop()
           for (let _i = 0; _i < 8; _i++) {
             let x = this.map_width* Math.random()
             let y = this.map_height* Math.random()
-            ctx.drawImage(dot ,x,y,this.size +3 , this.size+3)
+            ctx.drawImage(dot ,x,y,this.size +1 , this.size+1)
 
         }
 
