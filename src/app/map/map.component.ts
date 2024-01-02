@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit,  } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, } from '@angular/core';
 // import * as gifler from 'gifler'
 
 @Component({
@@ -9,7 +10,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit,  } from '@angu
   styleUrl: './map.component.css',
   
 })
-export class MapComponent  implements OnInit, AfterViewInit{
+export class MapComponent  implements OnInit, AfterViewInit {
    lat = 0 
   //  lat is from -90 to 90 vertical 
    long = 0 
@@ -17,6 +18,7 @@ export class MapComponent  implements OnInit, AfterViewInit{
    map_width =0
    map_height = 0
    size= 2
+   render_coor= false
    dot_arr_src=['../../assets/map/0.png','../../assets/map/1.png','../../assets/map/2.png','../../assets/map/3.png','../../assets/map/4.png' ]
    dot_arr: HTMLImageElement[] = [];
    convert_coor = (lat:number, long:number)=>{
@@ -49,30 +51,28 @@ export class MapComponent  implements OnInit, AfterViewInit{
                 this.dot_arr.push(dot);
                 
               })
-    const loop = ()=>{
+              const loop = ()=>{
+                
+                setTimeout(()=>{
+                  if(this.canvas){
+                    if(pos<len){
+                      
+                      ctx.clearRect(x, y, size, size);
+                      ctx.drawImage(this.dot_arr[pos],x,y,size,size)
+                      pos++
+                    }else{
+                      pos= len -1
+                      ctx.clearRect(x, y, size, size);
       
-      setTimeout(()=>{
-        if(this.canvas){
-        if(pos<len){
-          
-      console.log(pos)
-      // ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-      ctx.drawImage(this.dot_arr[pos],x,y,size,size)
-      pos++
-    }else{
-      pos= len
-      console.log(pos)
-      // ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-      
-      ctx.drawImage(this.dot_arr[pos],x,y,size,size)
-      pos =0 
-    }
+                    ctx.drawImage(this.dot_arr[pos],x,y,size,size)
+                    pos =0 
+                   }
     loop()
   }
-  },1000)
-loop()
+},74)
 
 }
+loop()
 }
 
   ngOnInit() {
@@ -80,6 +80,7 @@ loop()
         position => {
        
           this.convert_coor(position.coords.latitude, position.coords.longitude)
+          this.render_coor=true
         }
       );
     }
@@ -98,9 +99,17 @@ loop()
         
         dot.onload=()=>{
           this.animate_dot(ctx, this.long,this.lat, this.size)
-          ctx.drawImage(dot, this.long,this.lat, this.size,this.size )
-        
+          // ctx.drawImage(dot, this.long,this.lat, this.size,this.size )
+          for (let _i = 0; _i < 8; _i++) {
+            let x = this.map_width* Math.random()
+            let y = this.map_height* Math.random()
+            ctx.drawImage(dot ,x,y,this.size +3 , this.size+3)
+
         }
+
+        }
+       
+        
             
 
         }else{
